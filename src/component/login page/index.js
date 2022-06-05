@@ -3,7 +3,7 @@ import "./login.css";
 import logo from '../../assets/images/lotus.webp';
 import Login from "./login";
 import Register from "./register";
-function LogIn() {
+function LogIn(props) {
   const [isLogin, setisLogin] = useState(true);
   const RegisterPage = () => {
     setisLogin(!isLogin)
@@ -26,7 +26,7 @@ function LogIn() {
                     </div>
 
                     <form>
-                      {isLogin ? <Login></Login> : <Register></Register>}
+                      {isLogin ? <Login sendUserName={props.sendUserName}></Login> : <Register></Register>}
 
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2">{isLogin ? "Don't have an account?" : "Back to"}</p>

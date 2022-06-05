@@ -28,3 +28,7 @@
   background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important;
 }
 
+.NavLink {
+  color: white !important;
+  text-decoration: none !important;
+}
