@@ -1,0 +1,4 @@
+{
+  "connectionString": "mongodb+srv://brindhavan:brindhavan@cluster0.jqggk.mongodb.net/?retryWrites=true&w=majority",
+  "secret": "brindhavan"
+}
