@@ -125,8 +125,6 @@ function Register() {
     };
 
     return (<>
-
-
         <div className="form-outline mb-4" >
             <TextField
                 id="outlined-user-name-input"

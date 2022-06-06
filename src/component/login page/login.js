@@ -64,7 +64,7 @@ function Login(props) {
         setValidation({ ...validation, submitDisable: false })
         setnotification({ ...notification, open: true, notificationMessage: response.data.message, errorStatus: "success" })
         localStorage.setItem("access_token", response.data.user.token);
-      
+        localStorage.setItem("user_id", response.data.user.id);
         localStorage.setItem("user_name",response.data.user.firstName);
         props.sendUserName(response.data.user.firstName)
 
