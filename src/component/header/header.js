@@ -22,41 +22,38 @@ function Header(props) {
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
           <ul className="navbar-nav">
             <li className="nav-item text-center mx-2 mx-lg-1">
-              <a className="nav-link icon-color" href="#!">
+             
+                <NavLink className="NavLink" to="/home"> <a className="nav-link icon-color">
                 <div>
                   <i className="fas fa-home fa-lg mb-1"></i>
                   {/* <span className="badge rounded-pill badge-notification bg-info">11</span> */}
-                </div>
-                <NavLink className="NavLink" to="/home">  Home</NavLink>
-
-              </a>
+                </div>  Home  </a></NavLink>
             </li>
             <li className="nav-item text-center mx-2 mx-lg-1">
-              <a className="nav-link icon-color" href="#!">
+             
+                <NavLink className="NavLink" to="/movie"> <a className="nav-link icon-color" href="#!">
                 <div>
                   <i className="fas fa-video-camera fa-lg mb-1"></i>
                   {/* <span className="badge rounded-pill badge-notification bg-info">11</span> */}
-                </div>
-                Movies
-              </a>
+                </div> Movies</a></NavLink>
             </li>
             <li className="nav-item text-center mx-2 mx-lg-1">
-              <a className="nav-link icon-color" href="#!">
+              
+                <NavLink className="NavLink" to="/ticketbooking"><a className="nav-link icon-color" href="#!">
                 <div>
                   <i className="fas fa-ticket fa-lg mb-1"></i>
                   {/* <span className="badge rounded-pill badge-notification bg-info">11</span> */}
                 </div>
                 Ticket Booking
-              </a>
+              </a></NavLink>
             </li>
             <li className="nav-item text-center mx-2 mx-lg-1">
-              <a className="nav-link icon-color" href="#!">
+                <NavLink className="NavLink" to="/bookingHistory"> <a className="nav-link icon-color" href="#!">
                 <div>
                   <i className="fas fa-book fa-lg mb-1"></i>
                   {/* <span className="badge rounded-pill badge-notification bg-success">11</span> */}
-                </div>
-                Booking history
-              </a>
+                </div> Booking history
+              </a></NavLink>
             </li>
           </ul>
 
