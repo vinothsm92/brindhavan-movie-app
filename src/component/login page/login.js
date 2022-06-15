@@ -51,12 +51,11 @@ function Login(props) {
     }
     setState({ ...state, [name]: value })
   }
-  const onLogIn = (e) => {debugger
+  const onLogIn = (e) => {
     e.preventDefault();
     axios.post(api.logIn, state)
-      .then(response => {
+      .then(response => {debugger
         setState({
-
           "email": "",
           "password": ""
         })
