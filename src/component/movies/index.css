@@ -2,3 +2,15 @@
   
     padding: 0.5% !important;
 }
+.buttonSaveClear{
+    float: right;
+    display: flex;
+}
+.button-movie-save{
+    margin-right: 9% !important;
+}
+.button-movie-clear{
+    float: right!important;
+    
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important;
+}
