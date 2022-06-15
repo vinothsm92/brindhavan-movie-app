@@ -10,7 +10,7 @@ import HomePage from './component/home page/homePage';
 import React, { useState } from 'react';
 import MovieName from './component/movies/movie';
 import TicketBooking from './component/ticketBooking/ticketbooking';
-import BookingHistory from './component/bookingHistory';
+import BookingHistory from './component/bookinghistory/bookingHistory';
 function App() {
   const [userName,setuserName]=useState(localStorage.getItem("user_name")?localStorage.getItem("user_name"):"")
   const sendUserName = (childData) =>{
@@ -31,5 +31,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
