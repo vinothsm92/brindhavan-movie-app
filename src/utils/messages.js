@@ -6,3 +6,4 @@ var message = {
 }
 
 export default message;
+
