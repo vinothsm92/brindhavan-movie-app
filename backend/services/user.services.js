@@ -27,7 +27,6 @@ async function authenticate({ email, password }) {
     const token = jwt.sign({ sub: user.id, role: user.role }, config.secret, {
       expiresIn: "7d",
     });
-    // console.log("user.toJsoon", ...user.toJSON());
     return { ...user.toJSON(), token };
   }
 }
@@ -43,9 +42,8 @@ async function getById(id) {
 
 async function getAllUsers(userParam) {
   var pageNo = 0;
-  var perPage = 5
-  sort = { _id: 1 }
-  title = ""
+  var perPage = 5;
+  var sort = { _id: 1 };
   if (userParam.pageNo) {
     pageNo = parseInt(userParam.pageNo);
   }

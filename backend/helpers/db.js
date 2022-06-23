@@ -12,7 +12,7 @@ try {
       process.env.MONGODB_URI || config.connectionString,
       conenctionOptions
     )
-    .then((res) => console.log(`MOngoDB connected Successfully..!`));
+    .then((res) => console.log(`MongoDB connected Successfully..!`));
 } catch (error) {
   console.log(`MongoDB Error: `, error.message);
   process.exit(1);
@@ -22,5 +22,7 @@ mongoose.Promise = global.Promise;
 
 module.exports = {
   User: require("../models/user"),
-  Movies: require("../models/movies")
+  Movies: require("../models/movies"),
+  Tickets:require("../models/ticket"),
+  Bookings:require("../models/bookings")
 };

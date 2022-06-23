@@ -109,9 +109,10 @@ function getAllUsers(req, res, next) {
       if (req.body.perPage) {
         perPage = parseInt(req.body.perPage);
       }
-
-      var nextPage = Math.ceil(data[0].totalRecords / ((pageNo + 1) * perPage));
-      data[0].nextPage = nextPage - 1;
+      if (data.length > 0) {
+        var nextPage = Math.ceil(data[0].totalRecords / ((pageNo + 1) * perPage));
+        data[0].nextPage = nextPage - 1;
+      }
       if (!data) {
         res.status(404).json({ message: "User Not Found!" });
         next();

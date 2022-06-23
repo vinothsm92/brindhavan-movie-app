@@ -9,6 +9,8 @@ const errorHandler = require("./helpers/errorHandler");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/user.controllers");
 var moviesRouter = require("./routes/movies.controllers");
+var ticketsRouter = require("./routes/ticket.controller");
+var bookingsRouter = require("./routes/bookings.controller");
 
 var app = express();
 
@@ -26,6 +28,8 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/movies", moviesRouter);
+app.use("/api/tickets", ticketsRouter);
+app.use("/api/bookings",bookingsRouter)
 
 // catch 404 and forward to error handler
 app.use(errorHandler);

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import message from '../../utils/messages';
 import api from '../../utils/api.js';
-import axios from 'axios';
+import axios from "../../utils/axiosInterceptor";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
@@ -35,7 +35,7 @@ function Login(props) {
 
 
   const onChange = (e) => {
-    debugger
+    
     const { value, name } = e.target;
     if (name === "email") {
       if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
@@ -54,7 +54,7 @@ function Login(props) {
   const onLogIn = (e) => {
     e.preventDefault();
     axios.post(api.logIn, state)
-      .then(response => {debugger
+      .then(response => {
         setState({
           "email": "",
           "password": ""
@@ -69,7 +69,7 @@ function Login(props) {
         // <NavLink className="NavLink" to="/home"></NavLink>
       })
       .catch(error => {
-        debugger
+        
         setValidation({ ...validation, submitDisable: false })
         setnotification({ ...notification, open: true, notificationMessage: error.response.data.message, errorStatus: "error" })
       });
@@ -145,4 +145,4 @@ function Login(props) {
   </>);
 }
 
-export default Login;
+export default memo(Login);

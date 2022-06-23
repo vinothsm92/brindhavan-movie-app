@@ -1,7 +1,7 @@
-
-
 .booking-movie-container {
-  margin: 20px 0;
+  margin: 16px 0;
+  display: flex;
+  padding-top:1%;
 }
 
 .booking-movie-container select {
@@ -22,35 +22,36 @@
 }
 
 .booking-seat {
-  background-color: #ed0c6b82; ;
-  height: 50px;
-  width: 50px;
+  background-color: #ed0c6b82;
+  height: 15px;
+  width: 15px;
   margin: 3px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.booking-seat.booking-selected {
-
-    
-    background-color: #fd3c3c;
+.booking-selected {
+  background-color: #fd3c3c;
+  cursor: pointer;
 }
 
 
+.walking-space {
+  margin-right: 2%;
+}
 
 
-
-.booking-seat.booking-occupied {
+.booking-occupied {
   background-color: #fff;
 }
 
-.booking-seat:nth-of-type(2) {
+/* .booking-seat:nth-of-type(2) {
   margin-right: 18px;
 }
 
 .booking-seat:nth-last-of-type(2) {
   margin-left: 18px;
-}
+} */
 
 .booking-seat:not(.booking-occupied):hover {
   cursor: pointer;
@@ -71,9 +72,15 @@
   display: flex;
   justify-content: space-between;
 }
-.count{
-    background-color: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important;
+
+.count {
+  background-color: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important;
+  color:#f20528 !important;
 }
+ span {
+  color: #f20528;
+}
+
 .booking-showcase li {
   display: flex;
   align-items: center;
@@ -107,7 +114,109 @@ p.text span {
   color: #6feaf6;
 }
 
-.screen-design{
-    height: calc(100vh - 65px  );
-    margin-top:-1%
+.screen-design {
+  margin-top: -1%
+}
+
+.css-1lwbda4-MuiStack-root{
+  margin-left: 3%;
+}
+.css-195y93z-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+  background-color: #dc056b !important;
+}
+.css-bkrceb-MuiButtonBase-root-MuiPickersDay-root.Mui-selected{
+  background-color: #dc056b !important;
+}
+.showtimeMargin{
+  margin-left: 3%;
+}
+.searchMargin{
+  margin-left: 3% !important;
+}
+
+.bgMovieImage{
+  max-height: 400px;
+  overflow: hidden;
+  /* display: flex;
+    justify-content: center; */
+  
+}
+.nowShowingImage{
+  display: flex;
+  justify-content: center;
+}
+.confirmbooking{
+  float:right;
+}
+
+.word-break{
+  max-width: 100%;
+    word-break: break-all;
+}
+
+.invoice-li{
+  font-size: 30px;
+   color: red;
+}
+.invoice-h3{
+  font-size: 40px;
+}
+.invoice-span-li{
+  margin-right: 35px;
+}
+.invoice-li-div{
+  margin-left:60px;
+}  
+.invoice-p{
+  font-size: 30px; color: red; font-weight: 400;font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
 }

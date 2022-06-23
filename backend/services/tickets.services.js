@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const config = require("../config.json");
 const db = require("../helpers/db");
-const Movies = db.Movies;
+const Movies = db.Tickets;
 const mongoose = require("mongoose");
 
 //adding movies to db
@@ -49,6 +49,7 @@ async function getMovies(moviesParam) {
   var pageNo = 0;
   var perPage = 5;
   var sort = { _id: 1 }
+  sortTitle = ""
   if (moviesParam.pageNo) {
     pageNo = parseInt(moviesParam.pageNo);
   }
@@ -80,9 +81,6 @@ async function getMovies(moviesParam) {
     "$project": {
       "_id": 1,
       "movieName": 1,
-      "gst":1,
-      "movieImage":1,
-      "serviceCharge":1,
       "ticketPrice": 1,
       "crdeatedBy.firstName": 1,
       "updatedBy.firstName": 1,
