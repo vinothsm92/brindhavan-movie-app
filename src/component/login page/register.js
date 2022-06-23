@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import "./login.css";
 import message from '../../utils/messages.js';
 import api from '../../utils/api.js';
-import axios from 'axios';
+import axios from "../../utils/axiosInterceptor";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
@@ -37,7 +37,6 @@ function Register() {
     useEffect(() => {
     }, [state.password])
     const onChange = (event) => {
-
         const { name, value } = event.target;
         if (name === "firstName") {
             var fName = value.replace(/[^\w\s]/gi, "")
@@ -89,13 +88,13 @@ function Register() {
             setState({ ...state, [name]: !state.termsCondition })
         }
     }
-    const signUp = (e) => {debugger
-        debugger
+    const signUp = (e) => {
+        
         e.preventDefault();
         setValidationMsg({ ...validationMsg, submitDisable: true })
         axios.post(api.register, state)
             .then(response => {
-                debugger;
+                ;
                 setState({
                     "email": "",
                     "firstName": "",
@@ -112,7 +111,7 @@ function Register() {
                 
             })
             .catch(error => {
-                debugger
+                
                 setValidationMsg({ ...validationMsg, submitDisable: false })
                 setnotification({ ...notification, open: true, notificationMessage: error.response.data.message,errorStatus:"error" })
             });
@@ -240,4 +239,4 @@ function Register() {
     </>);
 }
 
-export default Register;
+export default memo(Register);

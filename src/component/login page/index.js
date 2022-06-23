@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import "./login.css";
 import logo from '../../assets/images/lotus.webp';
 import Login from "./login";
@@ -57,4 +57,4 @@ function LogIn(props) {
   </div>);
 }
 
-export default LogIn;
+export default memo(LogIn);

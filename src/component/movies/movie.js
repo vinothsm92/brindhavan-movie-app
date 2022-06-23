@@ -1,9 +1,9 @@
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import message from '../../utils/messages';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import api from '../../utils/api';
-import axios from 'axios';
+import axios from "../../utils/axiosInterceptor";
 import "./index.css";
 import SnackbarNotification from '../../utils/snackbar';
 function MovieName() {
@@ -25,10 +25,12 @@ function MovieName() {
         notificationMessage: "",
         errorStatus: ""
     })
+    const disableNotification = () => {
+        setTimeout(() => {
+            setnotification({ ...notification, open: false })
+        }, 3000);
+    }
     const { open, notificationMessage, errorStatus } = notification;
-    const config = {
-        headers: { "x-access-token": localStorage.getItem("access_token") }
-    };
     const onChange = (event) => {
         const { name, value } = event.target;
         setState({ ...state, [name]: value });
@@ -36,8 +38,10 @@ function MovieName() {
             var res = value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
             if (res != null) {
                 setValidationMsg({ ...validationMsg, movieImageValidation: "" })
+
             } else {
-                setValidationMsg({ ...validationMsg, movieImageValidation: message.invalidUrl })
+                setValidationMsg({ ...validationMsg, movieImageValidation: message.invalidUrl });
+
             }
         }
     }
@@ -50,20 +54,12 @@ function MovieName() {
             "serviceCharge": ""
         });
     }
-    const hideSnackbar = (msg) => {
-        setnotification({ ...notification, open: false })
-    }
-    const disableSnackbar = () => {
-        setTimeout(() => {
-            hideSnackbar();
-        }, 5000)
-    }
 
     const onSave = (e) => {
         debugger
         e.preventDefault();
-        setValidationMsg({ ...validationMsg, submitDisable: true })
-        axios.post(api.addMovie, state, config).then(response => {
+        setValidationMsg({...validationMsg,submitDisable: true })
+        axios.post(api.addMovie, state).then(response => {
             debugger
             setState({
                 "movieName": "",
@@ -74,11 +70,11 @@ function MovieName() {
             })
             setValidationMsg({ ...validationMsg, submitDisable: false })
             setnotification({ ...notification, open: true, notificationMessage: response.data.message, errorStatus: "success" });
-            disableSnackbar();
-        }).catch(error => {
+            disableNotification();
+        }).catch(error => {debugger
             setValidationMsg({ ...validationMsg, submitDisable: false });
-            disableSnackbar();
-            setnotification({ ...notification, open: true, notificationMessage: error.response.data.message, errorStatus: "error" })
+            setnotification({ ...notification, open: true, notificationMessage: error.response.data.message ? error.response.data.message : error.response.data , errorStatus: "error" })
+            disableNotification();
         });
     }
     return (
@@ -145,9 +141,9 @@ function MovieName() {
                         placeholder='Enter the Service Charge'
                         name="serviceCharge"
                         onChange={onChange}
-                        inputProps={{ inputmode: 'numeric', pattern: '[0-9]*',maxLength: 5 }}
+                        inputProps={{ inputmode: 'numeric', pattern: '[0-9]*', maxLength: 5 }}
                         value={state.serviceCharge}
-                        type="number" onKeyDown={(evt) => evt.key === 'e'||evt.key === '-'||evt.key === '+' && evt.preventDefault()}
+                        type="number" onKeyDown={(evt) => evt.key === 'e' || evt.key === '-' || evt.key === '+' && evt.preventDefault()}
                         fullWidth
                     />
                 </div>
@@ -169,8 +165,8 @@ function MovieName() {
                     <Button onClick={onClear} color="error" className="button-movie-clear" variant="contained" >clear</Button>
                 </div>
             </div>
-            <SnackbarNotification open={open} notificationMessage={notificationMessage} errorStatus={errorStatus} hideSnackbar={hideSnackbar} />
+            <SnackbarNotification open={open} notificationMessage={notificationMessage} errorStatus={errorStatus} />
         </div>);
 }
 
-export default MovieName;
+export default memo(MovieName);
