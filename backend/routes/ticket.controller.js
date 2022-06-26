@@ -8,7 +8,7 @@ const jwtVerify = require("../helpers/jwt.verify");
 router.post("/add", jwtVerify, add);
 router.put("/update", jwtVerify, update);
 router.delete("/:id", jwtVerify, _delete);
-router.post("/getMovies", getMovies);
+router.post("/getMovies",jwtVerify, getMovies);
 
 module.exports = router;
 

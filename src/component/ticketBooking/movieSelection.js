@@ -13,19 +13,18 @@ import seatings from '../../utils/seatings';
 import Button from '@mui/material/Button';
 import Ticketbooking from './ticketbooking';
 
-function MovieSelection(props) {
+function MovieSelection(props) {debugger
     const [showTime, setshowTime] = React.useState('');
 
-    const selectTime = (event) => {
+    const selectTime = (event) => {debugger
         setshowTime(event.target.value);
-        props.childState(event.target.value,'movieTiming')
+        props.childState(event.target.value,'movieTiming');
     };
-
+    
     const [showDate, setshowDate] = useState(new Date());
 
     const handleChange = (newValue) => {
         setshowDate(newValue);
-        
         props.childState(newValue,'fromDate')
     };
 
@@ -43,8 +42,8 @@ function MovieSelection(props) {
                 }
                 // onChange={selectMovie}
             > 
-                {props.movie.map((item) => {debugger
-                  return  <MenuItem value={item._id}>{item.movieName}</MenuItem>
+                {props.movie.map((item) => {
+                  return  <MenuItem value={item._id}>{item.movieName.toUpperCase()}</MenuItem>
                 })}
                 
                 {/* <MenuItem value={1}>don</MenuItem>
@@ -85,7 +84,7 @@ function MovieSelection(props) {
             </FormControl>
         </Box>
     </div>
-    <Button className="searchMargin" variant="contained" style={{}}  onClick={props.getBooking} disabled={showTime==""}>Search</Button></> );
+    <Button className="searchMargin" variant="contained" style={{backgroundColor:"#e52121" , color:"white"}}  onClick={props.getBooking} >Search</Button></> );
 }
 
 export default memo(MovieSelection);

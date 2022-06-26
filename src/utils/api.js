@@ -4,6 +4,7 @@ var api={
     logIn:API+'users/authenticate',
     addMovie:API+'movies/add',
     getMovies:API+'movies/getMovies',
-    getBookingHistory:API+'bookings/getBookingHistory'
+    getBookingHistory:API+'bookings/getBooking',
+    ticketConfirm:API+'bookings/add'
 }
 export default api;

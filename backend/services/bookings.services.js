@@ -43,9 +43,9 @@ async function getBookingsHistory(bookingParam) {
     sort = { [bookingParam.sortTitle]: bookingParam.sortBy ? bookingParam.sortBy : 1 }
   }
 
-var dateQuery = bookingParam.toDate == "" ?  new Date(bookingParam.fromDate.split('GMT')[0].trim()) : { 
-  $gte: new Date(bookingParam.fromDate.split('GMT')[0].trim()), 
-  $lte: new Date(bookingParam.toDate.split('GMT')[0].trim()) 
+var dateQuery = bookingParam.toDate == "" ?  new Date(bookingParam.fromDate.split('T')[0].trim()) : { 
+  $gte: new Date(bookingParam.fromDate.split('T')[0].trim()), 
+  $lte: new Date(bookingParam.toDate.split('T')[0].trim()) 
 } 
 
   var match = bookingParam.fromDate != "" ?
@@ -145,7 +145,13 @@ var dateQuery = bookingParam.toDate == "" ?  new Date(bookingParam.fromDate.spli
 }
 async function create(bookingParam) {
   //create booking obj
-  const newBookings = new Bookings(bookingParam);
+  const newBookings = new Bookings();
+  newBookings.movieId=   bookingParam.movieId;
+  newBookings.movieTiming =  bookingParam.movieTiming;
+  newBookings.seatSeletion = bookingParam.seatSeletion;
+  newBookings.movieDate=   new Date(bookingParam.movieDate.split('T')[0].trim());
+  newBookings.createdDate= bookingParam.createdDate ;
+  newBookings.udatedDate= bookingParam.udatedDate ;
   newBookings.createdBy = mongoose.Types.ObjectId(bookingParam.createdBy);
   newBookings.updatedBy = mongoose.Types.ObjectId(bookingParam.updatedBy);
   await newBookings.save();
@@ -166,9 +172,9 @@ async function getbookingDetails(bookingParam) {
   if (bookingParam.perPage) {
     perPage = parseInt(bookingParam.perPage);
   }
-  var dateQuery = bookingParam.toDate == "" ? new Date(bookingParam.fromDate.split('GMT')[0].trim()) : {
-    $gte: new Date(bookingParam.fromDate.split('GMT')[0].trim()),
-    $lte: new Date(bookingParam.toDate.split('GMT')[0].trim())
+  var dateQuery = bookingParam.toDate == "" ? new Date(bookingParam.fromDate.split('T')[0].trim()) : {
+    $gte: new Date(bookingParam.fromDate.split('T')[0].trim()),
+    $lte: new Date(bookingParam.toDate.split('T')[0].trim())
   }
   var skip = perPage * pageNo;
   var query = Bookings.aggregate([
