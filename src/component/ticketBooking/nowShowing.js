@@ -21,7 +21,7 @@ const NowShowing=()=> {
 
 
   useEffect(()=>{
-    setLoading(true);debugger
+    setLoading(true);
     axios.post(api.getMovies, state).then(response => {
       setData(response.data.user[0].data)
       setLoading(false)

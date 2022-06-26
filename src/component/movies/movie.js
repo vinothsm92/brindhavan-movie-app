@@ -56,11 +56,11 @@ function MovieName() {
     }
 
     const onSave = (e) => {
-        debugger
+        
         e.preventDefault();
         setValidationMsg({...validationMsg,submitDisable: true })
         axios.post(api.addMovie, state).then(response => {
-            debugger
+            
             setState({
                 "movieName": "",
                 "ticketPrice": "",
@@ -71,7 +71,7 @@ function MovieName() {
             setValidationMsg({ ...validationMsg, submitDisable: false })
             setnotification({ ...notification, open: true, notificationMessage: response.data.message, errorStatus: "success" });
             disableNotification();
-        }).catch(error => {debugger
+        }).catch(error => {
             setValidationMsg({ ...validationMsg, submitDisable: false });
             setnotification({ ...notification, open: true, notificationMessage: error.response.data.message ? error.response.data.message : error.response.data , errorStatus: "error" })
             disableNotification();

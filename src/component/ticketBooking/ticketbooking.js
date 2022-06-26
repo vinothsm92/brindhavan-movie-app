@@ -11,21 +11,37 @@ import api from '../../utils/api';
 import axios from "../../utils/axiosInterceptor";
 
 function TicketBooking({ }) {
-
+    var booktickets = [];
     const row = seatings.row;
     const seating = seatings.seatSize
     const lastSeat = seatings.lastSeat;
     const childRef = useRef();
+    const tick=useRef();
+    
     let { movieId } = useParams();
-    console.log(movieId);
+    const [showpage, setshowpage] = useState(false)
+    const [newSeat, setnewSeat] = useState([]);
     const [bookingHistory, setbookingHistory] = useState({
-        seatSeletion: [],
-        movieId: movieId,
-        fromDate: new Date(),
-        movieTiming: "",
+        "seatSeletion": [],
+        "movieId": movieId,
+        "movieDate": new Date(),
+        "movieTiming": "",
         "createdBy": localStorage.getItem("user_id"),
         "updatedBy": localStorage.getItem("user_id")
     });
+    const [historyRequest, sethistoryRequest] = useState({
+        "filterValue": "",
+        "pageNo": 0,
+        "sortTitle": "_id",
+        "sortBy": -1,
+        "perPage": 10,
+        "movieId": movieId,
+        "movieTiming": "",
+        "fromDate": new Date(),
+        "toDate": ""
+
+    })
+
     const [notification, setnotification] = React.useState({
         open: false,
         notificationMessage: "",
@@ -41,13 +57,12 @@ function TicketBooking({ }) {
         "perPage": 2,
     });
     const [movie, setmovie] = React.useState([]);
-
     useEffect(() => {
         console.log(bookingHistory);
     }, [bookingHistory]);
 
     useEffect(() => {
-        debugger
+
 
         axios.post(api.getMovies, state).then(response => {
             setmovie(response.data.user[0].data)
@@ -57,26 +72,57 @@ function TicketBooking({ }) {
 
             });
     }, [])
+
     const getBookingHistory = () => {
+        debugger
+      
+        if (bookingHistory.movieTiming === "") {
+            setnotification({ ...notification, open: true, notificationMessage: message.selectTiming, errorStatus: "warning" });
+            disableNotification()
+            return
+        }
+        
         if (bookingHistory.movieTiming === "") {
             setnotification({ ...notification, open: true, notificationMessage: message.selectTiming, errorStatus: "warning" });
             disableNotification()
             return
         } else {
-            axios.post(api.getBookingHistory, bookingHistory).then(response => {debugger
-              if(response.data.user.length!==0){
-                alert("hi")
-              }
-
+            axios.post(api.getBookingHistory, historyRequest).then(response => {debugger
+                setshowpage(true);
+                setbookingHistory({ ...bookingHistory, seatSeletion: [] });
+                if (response.data.user.length !== 0) {debugger
+                    setbookingHistory({ ...bookingHistory, seatSeletion: response.data.user[0].seatSeletion });
+                  
+                }
             })
                 .catch(error => {
 
                 })
         }
     }
+    const summaryOk = () => {debugger
+
+        axios.post(api.ticketConfirm, newSeat).then(response => {debugger
+
+            console.log("api")
+            getBookingHistory()
+            tick.current.showTick()
+            childRef.current.handlePrintname()
+        })
+            .catch(error => {
+
+                console.log("catch")
+            })
+    }
     //child to parent props
     const childToParent = useCallback((e, stateName) => {
-        setbookingHistory({ ...bookingHistory, [stateName]: e });
+        setshowpage(false)
+        if (stateName == "fromDate") {
+            setbookingHistory({ ...bookingHistory, movieDate: e });
+        } else {
+            setbookingHistory({ ...bookingHistory, [stateName]: e });
+        }
+        sethistoryRequest({ ...historyRequest, [stateName]: e })
     }, [bookingHistory])
 
 
@@ -86,12 +132,7 @@ function TicketBooking({ }) {
         }, 5000);
     }
     const seatClick = (rowIndex, columnIndex, seatingIndex) => {
-        debugger
-        // if (bookingHistory.movieId === "") {
-        //     setnotification({ ...notification, open: true, notificationMessage: message.selectMovie, errorStatus: "warning" });
-        //     disableNotification()
-        //     return
-        // }
+
         if (bookingHistory.movieTiming === "") {
             setnotification({ ...notification, open: true, notificationMessage: message.selectTiming, errorStatus: "warning" });
             disableNotification()
@@ -104,7 +145,7 @@ function TicketBooking({ }) {
             })
 
             if (isExisting.length > 0) {
-                debugger
+
                 var a = bookingHistory.seatSeletion.filter((e, i, a) => {
 
                     if (e.rowNo !== rowIndex || e.columnNo !== columnIndex || e.seatNo !== seatingIndex) {
@@ -121,8 +162,12 @@ function TicketBooking({ }) {
     }
     var seleted = "";
     const bookingConfirm = () => {
+        debugger
         seleted = " ";
-        bookingHistory.seatSeletion.map((e, index) => {
+        var nowSelected = bookingHistory.seatSeletion.filter((e, i, a) => {
+            return e.isConfirmed == undefined
+        })
+        nowSelected.map((e, index) => {
             let prevSeatCount = e.seatNo + 1;
             if (e.columnNo > 0) {
                 for (let i = 0; i < e.columnNo; i++) {
@@ -144,61 +189,82 @@ function TicketBooking({ }) {
         })
 
         var ticketDetails = sort.join(',')
-
+        var booktickets = structuredClone(bookingHistory);
+        booktickets.seatSeletion = nowSelected
+        console.log(booktickets);
+        setnewSeat(booktickets)
         childRef.current.handleClickOpen()
         setnotification({ ...Notification, ticketDetails: ticketDetails });
 
 
     }
+
+
+    const getSeatClass = (rowIndex, columnIndex, seatingIndex) => {
+        if (bookingHistory.seatSeletion.filter((e, i, a) => e.rowNo === rowIndex && e.columnNo === columnIndex && e.seatNo === seatingIndex && e.isConfirmed == true).length) {
+            return "booking-seat  booking-occupied"
+        }
+        else if (bookingHistory.seatSeletion.filter((e, i, a) => e.rowNo === rowIndex && e.columnNo === columnIndex && e.seatNo === seatingIndex && e.isConfirmed == undefined).length === 0) { return "booking-seat" }
+        else {
+            return "booking-seat booking-selected"
+        }
+    }
     return (
         <div className="container screen-design">
+         
             <div className="booking-movie-container">
                 <MovieSelection childState={childToParent} movieId={movieId} movie={movie} getBooking={getBookingHistory}></MovieSelection>
             </div>
-            <ul className="booking-showcase">
-                <li>
-                    <div className="booking-seat"></div>
-                    <small>N/A</small>
-                </li>
-                <li>
-                    <div className="booking-seat booking-selected"></div>
-                    <small>booking-selected</small>
-                </li>
-                <li>
-                    <div className="booking-seat booking-occupied"></div>
-                    <small>booking-occupied</small>
-                </li>
-            </ul>
-            <div className="booking-container">
-                <div className="booking-screen"></div>
-                {Array.from({ length: row }, (rowElement, rowIndex) => <div className='booking-row'>
-                    {seatings.alphabet[rowIndex]}
-                    {Array.from({ length: seating.length }, (columnElement, columnIndex) => {
-                        return <div className='walking-space'>
-                            <div className='booking-row'>
-                                {Array.from({ length: seating[columnIndex] }, (seatingElement, seatingIndex) => {
-                                    return <div className={bookingHistory.seatSeletion.filter((e, i, a) => e.rowNo === rowIndex && e.columnNo === columnIndex && e.seatNo === seatingIndex).length === 0 ? "booking-seat" : "booking-seat booking-selected"}
-                                        key={seatingIndex} onClick={() => { seatClick(rowIndex, columnIndex, seatingIndex) }} ></div>
-                                })}
+            {showpage? <>
+                <ul className="booking-showcase">
+                    <li>
+                        <div className="booking-seat"></div>
+                        <small>N/A</small>
+                    </li>
+                    <li>
+                        <div className="booking-seat booking-selected"></div>
+                        <small>booking-selected</small>
+                    </li>
+                    <li>
+                        <div className="booking-seat booking-occupied"></div>
+                        <small>booking-occupied</small>
+                    </li>
+                </ul>
+                <div className="booking-container">
+                    <div className="booking-screen"></div>
+                    {Array.from({ length: row }, (rowElement, rowIndex) => <div className='booking-row'>
+                        {seatings.alphabet[rowIndex]}
+                        {Array.from({ length: seating.length }, (columnElement, columnIndex) => {
+                            return <div className='walking-space'>
+                                <div className='booking-row'>
+                                    {Array.from({ length: seating[columnIndex] }, (seatingElement, seatingIndex) => {
+                                        return <div className={getSeatClass(rowIndex, columnIndex, seatingIndex)}
+                                            key={seatingIndex} onClick={() => { seatClick(rowIndex, columnIndex, seatingIndex) }} ></div>
+                                    })}
+                                </div>
                             </div>
-                        </div>
-                    })}
-                </div>)}
-                <div className='booking-row'>
-                    {Array.from({ length: lastSeat }, (columnelement, columnIndex) => {
-                        return <div className="booking-seat"></div>
-                    })}
+                        })}
+                    </div>)}
+                    <div className='booking-row'>
+                        {Array.from({ length: lastSeat }, (columnelement, columnIndex) => {
+                            return <div className="booking-seat"></div>
+                        })}
+                    </div>
+                    <TicketConfirmationModal ref={childRef}  title="Booking confirmation" summaryOk={summaryOk}>
+                        <ModalContent ticketDetails={notification.ticketDetails} ref={tick} bookingHistory={newSeat} movie={movie}></ModalContent>
+                    </TicketConfirmationModal>
+                    <button type="button" class="btn btn-danger confirmbooking" disabled={
+                        bookingHistory.seatSeletion.filter((e, i, a) => {
+                            return e.isConfirmed == undefined
+                        }).length === 0
+                    } onClick={bookingConfirm}>Confirm Booking</button>
                 </div>
-                <TicketConfirmationModal ref={childRef} title="Booking confirmation">
-                    <ModalContent ticketDetails={notification.ticketDetails} bookingHistory={bookingHistory} movie={movie}></ModalContent>
-                </TicketConfirmationModal>
-                <button type="button" class="btn btn-danger confirmbooking" disabled={
-                    bookingHistory.seatSeletion.length === 0
-                } onClick={bookingConfirm}>Confirm Booking</button>
-            </div>
-            <p className="text">
-                You have selected <span className="count">{bookingHistory.seatSeletion.length}</span> seats
-            </p>
+                <p className="text">
+                    You have selected <span className="count">{bookingHistory.seatSeletion.filter((e, i, a) => {
+                        return e.isConfirmed == undefined
+                    }).length}</span> seats
+                </p>
+            </>:null}
             <SnackbarNotification open={open} notificationMessage={notificationMessage} errorStatus={errorStatus} />
         </div>)
 }

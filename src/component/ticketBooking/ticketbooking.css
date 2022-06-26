@@ -33,6 +33,7 @@
 .booking-selected {
   background-color: #fd3c3c;
   cursor: pointer;
+  cursor: pointer;
 }
 
 
@@ -43,6 +44,7 @@
 
 .booking-occupied {
   background-color: #fff;
+  cursor: no-drop !important
 }
 
 /* .booking-seat:nth-of-type(2) {
@@ -147,6 +149,8 @@ p.text span {
 }
 .confirmbooking{
   float:right;
+  background-color: #e52121 !important;
+  cursor: pointer;
 }
 
 .word-break{

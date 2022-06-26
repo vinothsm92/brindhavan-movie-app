@@ -9,13 +9,15 @@ const schema = new Schema({
         {
             rowNo: { type: Number },
             columnNo: { type: Number },
-            seatNo: { type: Number }
+            seatNo: { type: Number },
+            isConfirmed: { type: Boolean, default: true },
         }],
     createdDate: { type: Date, default: Date.now },
     createdBy: { type: Schema.ObjectId, required: true },
     udatedDate: { type: Date, default: Date.now },
     updatedBy: { type: Schema.ObjectId, required: true },
     isActive: { type: Boolean, default: true },
+   
 });
 
 

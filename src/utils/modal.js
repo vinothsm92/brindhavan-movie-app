@@ -18,15 +18,25 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const TicketConfirmationModal = React.forwardRef((props, ref) => {
   const [open, setOpen] = React.useState(false);
+  const [buttonName, setbuttonName] = React.useState(true)
   useImperativeHandle(ref, () => ({
     handleClickOpen() {
       setOpen(true);
+   
+    },
+    handlePrintname(){
+      setbuttonName(false)
     }
   }));
   const handleClose = () => {
     setOpen(false);
+    setbuttonName(true)
   };
-
+  const handleOk = () => {
+    debugger
+    props.summaryOk() 
+   
+  }
   return (
     <div>
       <Dialog
@@ -42,7 +52,7 @@ const TicketConfirmationModal = React.forwardRef((props, ref) => {
           <Toolbar>
 
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-             {props.title}
+              {props.title}
             </Typography> <IconButton
               edge="start"
               color="inherit"
@@ -62,9 +72,9 @@ const TicketConfirmationModal = React.forwardRef((props, ref) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>CANCEL</Button>
-          <Button onClick={handleClose}autoFocus>
-            OK
-          </Button>
+          <button type="button" class="btn btn-danger confirmbooking" onClick={handleOk} autoFocus>
+            {buttonName ? "OK" : "Print"}
+          </button>
         </DialogActions>
       </Dialog>
     </div>
