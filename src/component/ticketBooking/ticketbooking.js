@@ -125,6 +125,9 @@ function TicketBooking({ }) {
         sethistoryRequest({ ...historyRequest, [stateName]: e })
     }, [bookingHistory])
 
+    const print = () =>{
+        tick.current.print()
+    }
 
     const disableNotification = () => {
         setTimeout(() => {
@@ -250,7 +253,7 @@ function TicketBooking({ }) {
                             return <div className="booking-seat"></div>
                         })}
                     </div>
-                    <TicketConfirmationModal ref={childRef}  title="Booking confirmation" summaryOk={summaryOk}>
+                    <TicketConfirmationModal ref={childRef}  title="Booking confirmation" summaryOk={summaryOk}  print={print}>
                         <ModalContent ticketDetails={notification.ticketDetails} ref={tick} bookingHistory={newSeat} movie={movie}></ModalContent>
                     </TicketConfirmationModal>
                     <button type="button" class="btn btn-danger confirmbooking" disabled={
