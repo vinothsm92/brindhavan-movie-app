@@ -37,11 +37,21 @@ const ModalContent = React.forwardRef(({ ticketDetails, bookingHistory, movie },
                     <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
                     <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
                 </svg>
+<<<<<<< HEAD
                 <h3 className="text-center">Your Ticket has been Confirmed</h3>
                 <Example invoiceSummary={invoiceSummary} bookingHistory={bookingHistory} ticketDetails={ticketDetails}></Example>
             </>
                 :
                 <div>
+=======
+
+                <Example invoiceSummary={invoiceSummary} bookingHistory={bookingHistory} ticketDetails={ticketDetails}></Example>
+            </>
+                :
+
+                <div>
+
+>>>>>>> cca24236bfd1cb5d0ee13b33b7b74939385b612c
                     <div className="card-header bg-black"></div>
                     <div className="card-body">
                         <div className="row">
@@ -98,6 +108,11 @@ const ModalContent = React.forwardRef(({ ticketDetails, bookingHistory, movie },
                     </div>
                     <div className="card-footer bg-black"></div>
                 </div>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> cca24236bfd1cb5d0ee13b33b7b74939385b612c
             }
         </div>
     </>);
@@ -117,13 +132,21 @@ class ComponentToPrint extends React.Component {
         const { bookingHistory, ticketDetails } = this.props;
         console.log(bookingHistory)
         const invoiceSummary = this.props.invoiceSummary;
+<<<<<<< HEAD
         
+=======
+        debugger
+>>>>>>> cca24236bfd1cb5d0ee13b33b7b74939385b612c
         const ticketPrice= invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice;
         const gst=(invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice) * invoiceSummary.gstRate / 100;
         const boookingCharge=invoiceSummary.totalSeatCount * invoiceSummary.serviceCharge;
         const total=ticketPrice+gst+boookingCharge;
         return (<div id="section-to-print">
+<<<<<<< HEAD
            
+=======
+            <h3 className="text-center">your Ticket has been Confirmed</h3>
+>>>>>>> cca24236bfd1cb5d0ee13b33b7b74939385b612c
             <h3 className="text-center">BRINDHAVAN THEATRE</h3>
             <h6 className="text-center">MOVIE :{op[0].movieName.toUpperCase()} </h6>
             <div className="center-content">
@@ -185,4 +208,8 @@ class Example extends React.Component {
             </div>
         );
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> cca24236bfd1cb5d0ee13b33b7b74939385b612c
