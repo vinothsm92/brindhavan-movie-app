@@ -74,7 +74,7 @@ function TicketBooking({ }) {
     }, [])
 
     const getBookingHistory = () => {
-        debugger
+        
       
         if (bookingHistory.movieTiming === "") {
             setnotification({ ...notification, open: true, notificationMessage: message.selectTiming, errorStatus: "warning" });
@@ -87,10 +87,10 @@ function TicketBooking({ }) {
             disableNotification()
             return
         } else {
-            axios.post(api.getBookingHistory, historyRequest).then(response => {debugger
+            axios.post(api.getBooking, historyRequest).then(response => {
                 setshowpage(true);
                 setbookingHistory({ ...bookingHistory, seatSeletion: [] });
-                if (response.data.user.length !== 0) {debugger
+                if (response.data.user.length !== 0) {
                     setbookingHistory({ ...bookingHistory, seatSeletion: response.data.user[0].seatSeletion });
                   
                 }
@@ -100,9 +100,9 @@ function TicketBooking({ }) {
                 })
         }
     }
-    const summaryOk = () => {debugger
+    const summaryOk = () => {
 
-        axios.post(api.ticketConfirm, newSeat).then(response => {debugger
+        axios.post(api.ticketConfirm, newSeat).then(response => {
 
             console.log("api")
             getBookingHistory()
@@ -125,6 +125,9 @@ function TicketBooking({ }) {
         sethistoryRequest({ ...historyRequest, [stateName]: e })
     }, [bookingHistory])
 
+    const print = () =>{
+        tick.current.print()
+    }
 
     const disableNotification = () => {
         setTimeout(() => {
@@ -162,7 +165,7 @@ function TicketBooking({ }) {
     }
     var seleted = "";
     const bookingConfirm = () => {
-        debugger
+        
         seleted = " ";
         var nowSelected = bookingHistory.seatSeletion.filter((e, i, a) => {
             return e.isConfirmed == undefined
@@ -250,7 +253,7 @@ function TicketBooking({ }) {
                             return <div className="booking-seat"></div>
                         })}
                     </div>
-                    <TicketConfirmationModal ref={childRef}  title="Booking confirmation" summaryOk={summaryOk}>
+                    <TicketConfirmationModal ref={childRef}  title="Booking confirmation" summaryOk={summaryOk}  disabled={true}>
                         <ModalContent ticketDetails={notification.ticketDetails} ref={tick} bookingHistory={newSeat} movie={movie}></ModalContent>
                     </TicketConfirmationModal>
                     <button type="button" class="btn btn-danger confirmbooking" disabled={
@@ -269,4 +272,3 @@ function TicketBooking({ }) {
         </div>)
 }
 export default memo(TicketBooking);
-

@@ -12,7 +12,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.MuiTableCell-head {
+  background-color: #dd3675 !important;
+}
 .border {
   background-color: white;
 }

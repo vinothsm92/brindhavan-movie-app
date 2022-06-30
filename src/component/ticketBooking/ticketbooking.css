@@ -194,7 +194,7 @@ p.text span {
   stroke-width: 2;
   stroke: #fff;
   stroke-miterlimit: 10;
-  margin: 10% auto;
+  margin: 2% auto;
   box-shadow: inset 0px 0px 0px #7ac142;
   animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
 }
@@ -223,4 +223,30 @@ p.text span {
   100% {
     box-shadow: inset 0px 0px 0px 30px #7ac142;
   }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #section-to-print, #section-to-print * {
+    visibility: visible;
+  }
+  #section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+ 
+}
+.center-content{
+  display: flex;
+  justify-content: center;
+}
+
+.word-wrap{
+  display:block;
+  width:150px;
+  word-wrap:break-word;
 }

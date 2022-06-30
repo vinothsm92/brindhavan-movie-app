@@ -28,14 +28,19 @@ const TicketConfirmationModal = React.forwardRef((props, ref) => {
       setbuttonName(false)
     }
   }));
-  const handleClose = () => {
+  const handleClose = (event,reason) => {
+    if (reason && reason == "backdropClick") 
+    return;
+
     setOpen(false);
     setbuttonName(true)
   };
   const handleOk = () => {
-    debugger
+    if(buttonName){
     props.summaryOk() 
-   
+    }else{
+      props.print()
+    }
   }
   return (
     <div>
@@ -47,6 +52,7 @@ const TicketConfirmationModal = React.forwardRef((props, ref) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         TransitionComponent={Transition}
+        
       >
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
@@ -71,14 +77,13 @@ const TicketConfirmationModal = React.forwardRef((props, ref) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>CANCEL</Button>
-          <button type="button" class="btn btn-danger confirmbooking" onClick={handleOk} autoFocus>
-            {buttonName ? "OK" : "Print"}
-          </button>
+        {buttonName ?<> <Button onClick={handleClose}>CANCEL</Button>
+           <button type="button" class="btn btn-danger confirmbooking" onClick={handleOk} autoFocus>
+            OK
+          </button></>:null}
         </DialogActions>
       </Dialog>
     </div>
   );
 })
 export default memo(TicketConfirmationModal);
-
