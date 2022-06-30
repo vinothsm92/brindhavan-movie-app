@@ -13,78 +13,94 @@ import seatings from '../../utils/seatings';
 import Button from '@mui/material/Button';
 import Ticketbooking from './ticketbooking';
 
-function MovieSelection(props) {debugger
+function MovieSelection(props) {
+    
     const [showTime, setshowTime] = React.useState('');
 
-    const selectTime = (event) => {debugger
+    const selectTime = (event) => {
+        
         setshowTime(event.target.value);
-        props.childState(event.target.value,'movieTiming');
+        props.childState(event.target.value, 'movieTiming');
     };
-    
+
     const [showDate, setshowDate] = useState(new Date());
 
     const handleChange = (newValue) => {
         setshowDate(newValue);
-        props.childState(newValue,'fromDate')
+        props.childState(newValue, 'fromDate')
     };
+    const [movieId, setmovieId] = useState(props.movieId)
+    const MovieChange = (event) => {
+        setmovieId(event.target.value);
+        props.childState(event.target.value, 'movieId');
+    }
+    
 
-    return ( <> <Box sx={{ minWidth: 320, maxWidth: 320 }}>
-        
+    return (<> <Box sx={{ minWidth: 320, maxWidth: 320 }}>
+
         <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">select Movie</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={props.movieId}
+                value={movieId}
+                onChange={MovieChange}
                 label="movie"
                 disabled={
-                    props.movieId!=""
+                    props.movieId 
                 }
-                // onChange={selectMovie}
-            > 
+            // onChange={selectMovie}
+            >
                 {props.movie.map((item) => {
-                  return  <MenuItem value={item._id}>{item.movieName.toUpperCase()}</MenuItem>
+                    return <MenuItem value={item._id}>{item.movieName.toUpperCase()}</MenuItem>
                 })}
-                
+
                 {/* <MenuItem value={1}>don</MenuItem>
                 <MenuItem value={2}>can</MenuItem>
                 <MenuItem value={3}>pan</MenuItem> */}
             </Select>
         </FormControl>
-       
+
     </Box>
 
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Stack spacing={3}>
-            <DesktopDatePicker
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Stack spacing={3}>
+                { props.movieId ?
+                <DesktopDatePicker
+                    label="Date"
+                    inputFormat="dd/MM/yyyy"
+                    value={showDate}
+                    minDate={new Date()}
+                    maxDate={new Date(new Date().getTime() + (seatings.futureTicketAvailableDates * 24 * 60 * 60 * 1000))}
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField {...params} />}
+                />: <DesktopDatePicker
                 label="Date"
                 inputFormat="dd/MM/yyyy"
                 value={showDate}
-                minDate={new Date()}
-                maxDate={new Date(new Date().getTime() + (seatings.futureTicketAvailableDates * 24 * 60 * 60 * 1000))}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
-            />
-        </Stack>
-    </LocalizationProvider>
-    <div className="showtimeMargin">
-        <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">ShowTime</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={showTime}
-                    label="Time"
-                    onChange={selectTime}
-                >
-                    {seatings.showTiming.map((e, i, a) => { return <MenuItem value={e}>{e}</MenuItem> })}
-                
-                </Select>
-            </FormControl>
-        </Box>
-    </div>
-    <Button className="searchMargin" variant="contained" style={{backgroundColor:"#e52121" , color:"white"}}  onClick={props.getBooking} >Search</Button></> );
+            />}
+            </Stack>
+        </LocalizationProvider>
+        <div className="showtimeMargin">
+            <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">ShowTime</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={showTime}
+                        label="Time"
+                        onChange={selectTime}
+                    >
+                        {seatings.showTiming.map((e, i, a) => { return <MenuItem value={e}>{e}</MenuItem> })}
+
+                    </Select>
+                </FormControl>
+            </Box>
+        </div>
+        <Button className="searchMargin" variant="contained" style={{ backgroundColor: "#e52121", color: "white" }} onClick={props.getBooking} >Search</Button></>);
 }
 
 export default memo(MovieSelection);

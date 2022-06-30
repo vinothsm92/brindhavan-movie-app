@@ -87,4 +87,3 @@ const TicketConfirmationModal = React.forwardRef((props, ref) => {
   );
 })
 export default memo(TicketConfirmationModal);
-
