@@ -137,8 +137,8 @@ function MovieName() {
                 <div className="form-outline mb-4"  >
                     <TextField
                         id="outlined-serviceCharge-input"
-                        label="Service Charge (₹)"
-                        placeholder='Enter the Service Charge'
+                        label="Booking Charge (₹)"
+                        placeholder='Enter the Booking Charge'
                         name="serviceCharge"
                         onChange={onChange}
                         inputProps={{ inputmode: 'numeric', pattern: '[0-9]*', maxLength: 5 }}

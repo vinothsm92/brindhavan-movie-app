@@ -104,7 +104,6 @@ function TicketBooking({ }) {
 
         axios.post(api.ticketConfirm, newSeat).then(response => {
 
-            console.log("api")
             getBookingHistory()
             tick.current.showTick()
             childRef.current.handlePrintname()

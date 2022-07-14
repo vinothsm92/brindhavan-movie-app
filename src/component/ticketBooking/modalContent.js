@@ -1,14 +1,15 @@
 import React, { memo, useState } from "react";
 import ReactToPrint from "react-to-print";
 const { useImperativeHandle } = React;
-var op = []
-const ModalContent = React.forwardRef(({ ticketDetails, bookingHistory, movie }, ref) => {
-
+var op = [];
+let date = ""
+const ModalContent = React.forwardRef(({ ticketDetails, bookingHistory, movie, print }, ref) => {
+    
+    date = typeof bookingHistory.movieDate == 'string' ? bookingHistory.movieDate.split('T')[0].split("-").reverse().join("-") : bookingHistory.movieDate.getDate() + '/' + bookingHistory.movieDate.getMonth() + '/' + bookingHistory.movieDate.getFullYear()
     op = movie.filter((e, i, arr) => {
 
         return e._id == bookingHistory.movieId
     })
-
     const [invoiceSummary, setinvoiceSummary] = useState({
         totalSeatCount: bookingHistory.seatSeletion.length,
         ticketPrice: op[0].ticketPrice,
@@ -25,14 +26,14 @@ const ModalContent = React.forwardRef(({ ticketDetails, bookingHistory, movie },
             window.print();
         }
     }));
-    const ticketPrice= invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice;
-        const gst=(invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice) * invoiceSummary.gstRate / 100;
-        const boookingCharge=invoiceSummary.totalSeatCount * invoiceSummary.serviceCharge;
-        const total=ticketPrice+gst+boookingCharge;
+    const ticketPrice = invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice;
+    const gst = (invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice) * invoiceSummary.gstRate / 100;
+    const boookingCharge = invoiceSummary.totalSeatCount * invoiceSummary.serviceCharge;
+    const total = ticketPrice + gst + boookingCharge;
     return (<>
 
         <div className="card">
-            {summaryFinalOk ? <>
+            {summaryFinalOk || print ? <>
                 <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                     <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
                     <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
@@ -51,7 +52,7 @@ const ModalContent = React.forwardRef(({ ticketDetails, bookingHistory, movie },
                                     <ul className="list-unstyled float-end">
                                         <span className="invoice-li">MOVIE :{op[0].movieName.toUpperCase()} </span>
                                         <br></br>
-                                        <li >DATE : {bookingHistory.movieDate.getDate()}/{bookingHistory.movieDate.getMonth()}/{bookingHistory.movieDate.getFullYear()}</li>
+                                        <li >DATE : {date}</li>
                                         <li>TIME: {bookingHistory.movieTiming}</li>
                                         <li>Seats : {ticketDetails}</li>
                                     </ul>
@@ -117,19 +118,27 @@ class ComponentToPrint extends React.Component {
         const { bookingHistory, ticketDetails } = this.props;
         console.log(bookingHistory)
         const invoiceSummary = this.props.invoiceSummary;
-        
-        const ticketPrice= invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice;
-        const gst=(invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice) * invoiceSummary.gstRate / 100;
-        const boookingCharge=invoiceSummary.totalSeatCount * invoiceSummary.serviceCharge;
-        const total=ticketPrice+gst+boookingCharge;
+
+        const ticketPrice = invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice;
+        const gst = (invoiceSummary.totalSeatCount * invoiceSummary.ticketPrice) * invoiceSummary.gstRate / 100;
+        const boookingCharge = invoiceSummary.totalSeatCount * invoiceSummary.serviceCharge;
+        const total = ticketPrice + gst + boookingCharge;
         return (<div id="section-to-print">
-           
+
             <h3 className="text-center">BRINDHAVAN THEATRE</h3>
-            <h6 className="text-center">MOVIE :{op[0].movieName.toUpperCase()} </h6>
-            <div className="center-content">
-            <p className="word-wrap">Seats : {ticketDetails}</p>
+            <div className="col-md-12 row" style={{ display: "flex" }}>
+                <div className="col-md-9"> <h6 >DATE : {date}</h6>
+                </div>
+                <div className="col-md-3 float-right"> <h6 >MOVIE :{op[0].movieName.toUpperCase()} </h6></div>
             </div>
-           
+
+            <div className="col-md-12 row" style={{ display: "flex" }}>
+                <div className="col-md-9"> <h6>TIME: {bookingHistory.movieTiming}</h6>
+                </div>
+                <div className="col-md-3 float-right"> <p className="word-wrap">Seats : {ticketDetails}</p>
+                </div>
+            </div>
+
             <div style={{ display: "flex", justifyContent: "center", }}>
 
                 <table className="table">

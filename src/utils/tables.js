@@ -7,7 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -20,9 +21,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 
-export default function CustomizedTables(props) {
-    
-    return (
+ function CustomizedTables(props) {
+    const [page, setPage] = React.useState(1);
+const handleChange = (e, value) => {
+    e.preventDefault();
+  setPage(value);
+  props.paginationPage(value)
+};
+    return (<>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
                 <TableHead>
@@ -39,5 +45,12 @@ export default function CustomizedTables(props) {
                 </TableBody>
             </Table>
         </TableContainer>
+        <Stack spacing={2}>
+      <Pagination count={props.tableCount} page={page} onChange={(event, pageNumber) => handleChange(event,pageNumber)} color="primary" />
+    </Stack>
+        </>
     );
 }
+
+
+export default React.memo(CustomizedTables)

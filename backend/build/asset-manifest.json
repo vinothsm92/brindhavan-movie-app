@@ -1,16 +1,30 @@
 {
   "files": {
-    "main.css": "/static/css/main.7033db18.css",
-    "main.js": "/static/js/main.73f4c5e8.js",
-    "static/js/787.79c72d91.chunk.js": "/static/js/787.79c72d91.chunk.js",
+    "main.css": "/static/css/main.4758a778.css",
+    "main.js": "/static/js/main.47419267.js",
+    "static/js/787.7c42db31.chunk.js": "/static/js/787.7c42db31.chunk.js",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.3fe9d36ed88cf3aeea1f.svg",
+    "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.8f604243eb69f0f4840a.ttf",
+    "static/media/fontawesome-webfont.eot": "/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fa-solid-900.woff2": "/static/media/fa-solid-900.59edf72a325ac2048d60.woff2",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/static/media/fontawesome-webfont.bfcf94e00816b7cfccc7.ttf",
+    "static/media/fa-brands-400.ttf": "/static/media/fa-brands-400.1776173e3b1af55eb455.ttf",
+    "static/media/fa-brands-400.woff2": "/static/media/fa-brands-400.73552ae13731e1269905.woff2",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/static/media/fontawesome-webfont.b09f4960e5ffa8e0ef92.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/static/media/fontawesome-webfont.af6df524c7d052f637e3.woff2",
+    "static/media/lotus.webp": "/static/media/lotus.66b715613a757d7b6034.webp",
+    "static/media/fa-regular-400.ttf": "/static/media/fa-regular-400.c9c57c0f1f4eb34dbf57.ttf",
+    "static/media/fa-regular-400.woff2": "/static/media/fa-regular-400.0caf4c6cf244a90efcc5.woff2",
+    "static/media/fa-v4compatibility.ttf": "/static/media/fa-v4compatibility.4baccb548138840fa33a.ttf",
+    "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.afac89562a5301459069.woff2",
     "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/index.html",
-    "main.7033db18.css.map": "/static/css/main.7033db18.css.map",
-    "main.73f4c5e8.js.map": "/static/js/main.73f4c5e8.js.map",
-    "787.79c72d91.chunk.js.map": "/static/js/787.79c72d91.chunk.js.map"
+    "main.4758a778.css.map": "/static/css/main.4758a778.css.map",
+    "main.47419267.js.map": "/static/js/main.47419267.js.map",
+    "787.7c42db31.chunk.js.map": "/static/js/787.7c42db31.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7033db18.css",
-    "static/js/main.73f4c5e8.js"
+    "static/css/main.4758a778.css",
+    "static/js/main.47419267.js"
   ]
 }

@@ -22,3 +22,11 @@ input[type=number]::-webkit-outer-spin-button {
 .css-uym98a-MuiImageList-root {
   height: 500px !important;
 }
+.css-1p5q5e5-MuiStack-root {
+  margin: 8px !important;
+  float: right;
+}
+.css-1to7aaw-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  color: #fff;
+  background-color: #dd3675 !important;
+}
